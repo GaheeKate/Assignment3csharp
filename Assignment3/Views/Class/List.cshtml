@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Assignment3.Models.Class>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<p>This page shows information about all Classes</p>
+<p>Classes can be searched by class name.</p>
+
+<div id="containerlist">
+    <h2>List of Classes</h2>
+
+    <form action="List" method="GET">
+        <input type="text" name="SearchKey" />
+        <input type="submit" name="Search" />
+    </form>
+
+    @foreach (Assignment3.Models.Class course in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12">
+                <a href="/Class/Show/@course.ClassId">@course.ClassCode @course.ClassName</a>
+            </div>
+        </div>
+
+    }
+</div>

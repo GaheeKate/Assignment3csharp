@@ -1,0 +1,105 @@
+﻿html {
+    font: normal 1em/1.5 Arial,Helvetica,sans-serif;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: lightsteelblue;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+   
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #777;
+    border-color: #fff
+   
+}
+
+.navlink{
+    text-align: right;
+    margin-top: 30px;
+    float: right;
+}
+
+#containerlist, #containershow {
+    width: 80%;
+    margin: 50px;
+    background: skyblue;
+    padding: 50px;
+    border: 5px solid white;
+    border-radius: 5em;
+
+}
+
+.listitem{
+    margin: 10px 0;
+}
+
+
+p, h2 {
+    margin: 0.6em auto;
+    
+} 
+
+header {
+    background: rgb(117, 122, 182);
+    padding: 1px;
+    letter-spacing: 10px;
+}
+
+
+
+.exp {
+    font-size: 1.2em;
+    font-family: 'Segoe UI';
+    text-align: center;
+}
+
+
+a, a:link {
+    color: blue;
+    text-decoration:none;
+}
+
+    a:visited {
+        color: purple;
+    }
+
+    a:hover {
+        cursor: pointer;
+        color: red;
+        background-color: lightgrey;
+        text-decoration: none;
+    }
+
+    a:active {
+        color: black;
+        background-color: greenyellow;
+    }
+
+    #st {
+       color: red;
+    }
+
+
+li {
+    font-size: 1.2em;
+    margin-right: 2em;
+}
+
+
+

@@ -1,0 +1,29 @@
+﻿
+@model IEnumerable<Assignment3.Models.Student>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<p>This page shows information about all Students</p>
+<p>Students can be searched by last or first or full name.</p>
+
+<div id="containerlist">
+    <h2>List of Students</h2>
+
+    <form action="List" method="GET">
+        <input type="text" name="SearchKey" />
+        <input type="submit" name="Search" />
+    </form>
+
+    @foreach (Assignment3.Models.Student student in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12">
+                <a href="/Student/Show/@student.StudentId">@student.StudentFname @student.StudentLname</a>
+            </div>
+        </div>
+
+    }
+</div>

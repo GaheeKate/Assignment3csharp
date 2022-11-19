@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Assignment3.Models.Class>
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<div class="exp">
+    <h2>@ViewBag.NewTeacher.TeacherFname @ViewBag.NewTeacher.TeacherLname</h2>
+    <p>TeacherId:@ViewBag.NewTeacher.TeacherId</p>
+    <p>Hiredate:@ViewBag.NewTeacher.Hiredate</p>
+    <p>Salary:@ViewBag.NewTeacher.Salary</p>
+</div>
+
+
+
+<div id="containerlist">
+    <h3>@ViewBag.NewTeacher.TeacherFname @ViewBag.NewTeacher.TeacherLname Teaches:</h3>
+
+    @foreach (Assignment3.Models.Class classbyteacher in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12">
+                <a href="/Class/Show/@classbyteacher.ClassId">@classbyteacher.ClassCode @classbyteacher.ClassName</a>
+            </div>
+        </div>
+
+    }
+
+</div>
