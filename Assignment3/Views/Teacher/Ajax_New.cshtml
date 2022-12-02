@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "AJAX NEW";
+}
+
+
+<div id="containershow">
+    <nav>
+        <a class="navlink" href="/Teacher/List">Back To Teacher</a>
+    </nav>
+    <h2>New Teacher</h2>
+
+    <div class="inputrow">
+        <label for="TeacherFname">First Name:</label>
+        <input type="text" id="TeacherFname" name="TeacherFname" required />
+
+    </div>
+    <div class="inputrow">
+        <label for="TeacherLname">Last Name:</label>
+        <input type="text" id="TeacherLname" name="TeacherLname" required />
+
+    </div>
+    <div class="inputrow">
+        <label for="Salary">Salary:</label>
+        <input type="text" id="Salary" name="Salary" required />
+    </div>
+
+    <div class="inputrow">
+        <label for="Employeenumber">Employeenumber:</label>
+        <input type="text" id="Employeenumber" name="Employeenumber" required>
+    </div>
+
+    <button onclick="AddTeacher();">Add Teacher</button>
+    <div id="ErrorBox" style="display:none;"></div>
+</div>

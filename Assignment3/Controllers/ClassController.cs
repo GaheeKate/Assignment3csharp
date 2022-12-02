@@ -27,10 +27,20 @@ namespace Assignment3.Controllers
         public ActionResult Show(int id)
         {
             ClassDataController controller = new ClassDataController();
+
+
             Class NewClass = controller.FindClass(id);
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+
+            ViewBag.SelectedTeacher = SelectedTeacher;
 
             return View(NewClass);
         }
+
+
+
+
+
 
 
     }

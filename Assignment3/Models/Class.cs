@@ -14,6 +14,6 @@ namespace Assignment3.Models
         public DateTime StartDate;
         public DateTime FisihiDate;
         public string ClassName;
-
+     
     }
 }

@@ -154,7 +154,6 @@ namespace Assignment3.Controllers
                 string ClassName = (string)ResultSet["classname"];
 
 
-
                 NewClass.TeacherId = TeacherId;
                 NewClass.ClassId = ClassId;
                 NewClass.ClassCode = ClassCode;
@@ -162,14 +161,53 @@ namespace Assignment3.Controllers
                 NewClass.FisihiDate = FisihiDate;
                 NewClass.ClassName = ClassName;
 
-
             }
 
             return NewClass;
         }
 
 
+        //find teacher
+        [HttpGet]
+        public Teacher FindTeacher(int id)
+        {
+            Teacher NewTeacher = new Teacher();
+            MySqlConnection Conn = School.AccessDatabase();
 
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "Select * from teachers where teacherid = " + id;
+
+
+            //Gather Result Set of Query into a variable
+            MySqlDataReader ResultSet = cmd.ExecuteReader();
+
+            while (ResultSet.Read())
+            {
+                //Access Column information by the DB column name as an index
+                int TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
+                string TeacherFname = (string)ResultSet["teacherFname"];
+                string TeacherLName = (string)ResultSet["teacherlname"];
+                string Employeenumber = ResultSet["employeenumber"].ToString();
+                DateTime HireDate = (DateTime)ResultSet["hiredate"];
+                decimal Salary = (decimal)ResultSet["salary"];
+
+                NewTeacher.TeacherId = TeacherId;
+                NewTeacher.TeacherFname = TeacherFname;
+                NewTeacher.TeacherLname = TeacherLName;
+                NewTeacher.Employeenumber = Employeenumber;
+                NewTeacher.HireDate = HireDate;
+                NewTeacher.Salary = Salary;
+
+            }
+
+            return NewTeacher;
+        }
 
 
 

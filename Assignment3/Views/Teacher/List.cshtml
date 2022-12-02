@@ -11,21 +11,25 @@
 
 
 
-    <div id="containerlist">
-        <h2>List of Teachers</h2>
+<div id="containerlist">
+    <h2>List of Teachers</h2>
 
-        <form action="List" method="GET">
-            <input type="text" name="SearchKey" />
-            <input type="submit" name="Search" />
-        </form>
+    <nav>
+        <a class="navlink_nt" href="/Teacher/Ajax_New">New Teacher</a>
+    </nav>
 
-        @foreach (Assignment3.Models.Teacher teacher in Model)
-        {
-            <div class="listitem row">
-                <div class="col-md-12">
-                    <a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname</a>
-                </div>
+    <form action="List" method="GET">
+        <input type="text" name="SearchKey" />
+        <input type="submit" name="Search" />
+    </form>
+
+    @foreach (Assignment3.Models.Teacher teacher in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12">
+                <a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname</a>
             </div>
+        </div>
 
-        }
-    </div>
+    }
+</div>

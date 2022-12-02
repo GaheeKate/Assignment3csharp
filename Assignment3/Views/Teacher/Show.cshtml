@@ -5,16 +5,24 @@
 }
 
 <div class="exp">
-    <h2>@ViewBag.NewTeacher.TeacherFname @ViewBag.NewTeacher.TeacherLname</h2>
-    <p>TeacherId:@ViewBag.NewTeacher.TeacherId</p>
-    <p>Hiredate:@ViewBag.NewTeacher.Hiredate</p>
-    <p>Salary:@ViewBag.NewTeacher.Salary</p>
+    <nav>
+        <a class="navlink" href="/Teacher/List">Back to List</a>
+        <a class="dellink" href="/Teacher/DeleteConfirm/@ViewBag.SelectedTeacher.TeacherId">Delete</a>
+        <a class="navlink" href="/Teacher/Ajax_Update/@ViewBag.SelectedTeacher.TeacherId">Update</a>
+    </nav>
+
+    <h2>@ViewBag.SelectedTeacher.TeacherFname @ViewBag.SelectedTeacher.TeacherLname</h2>
+    <p>TeacherId:@ViewBag.SelectedTeacher.TeacherId</p>
+    <p>Hiredate:@ViewBag.SelectedTeacher.HireDate.ToString("dd-MMM-yyyy")</p>
+    <p>Salary:@ViewBag.SelectedTeacher.Salary</p>
+    <p>Employnumber:@ViewBag.SelectedTeacher.Employeenumber.ToUpper()</p>
+
 </div>
 
 
 
 <div id="containerlist">
-    <h3>@ViewBag.NewTeacher.TeacherFname @ViewBag.NewTeacher.TeacherLname Teaches:</h3>
+    <h3>@ViewBag.SelectedTeacher.TeacherFname @ViewBag.SelectedTeacher.TeacherLname Teaches:</h3>
 
     @foreach (Assignment3.Models.Class classbyteacher in Model)
     {
@@ -25,5 +33,7 @@
         </div>
 
     }
+
+
 
 </div>

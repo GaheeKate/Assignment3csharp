@@ -8,19 +8,19 @@ body {
     background-color: lightsteelblue;
 }
 
-/* Set padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
    
 }
+
 
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
@@ -29,11 +29,41 @@ textarea {
    
 }
 
-.navlink{
-    text-align: right;
-    margin-top: 30px;
+
+nav {
+    overflow: hidden;
+    margin: 30px auto;
+}
+
+.navlink {
+    float: left;
+    margin-right: 50px;
+}
+
+.dellink {
+    color: #dd1111;
     float: right;
 }
+
+.navlink_nt {
+    float: right;
+    margin-right: 50px;
+    background: teal;
+    padding: 2px;
+    color: #fff;
+    border: 2px solid #000;
+    border-radius: 3px;
+}
+
+.delbutton {
+    display: block;
+    margin: 0 auto;
+    background: #dd1111;
+    color: #fff;
+    border: 2px solid #000;
+    border-radius: 3px;
+}
+
 
 #containerlist, #containershow {
     width: 80%;
@@ -71,14 +101,11 @@ header {
 
 
 a, a:link {
-    color: blue;
+    color: darkblue;
     text-decoration:none;
 }
 
-    a:visited {
-        color: purple;
-    }
-
+ 
     a:hover {
         cursor: pointer;
         color: red;
@@ -101,5 +128,24 @@ li {
     margin-right: 2em;
 }
 
+.inputrow {
+    margin-bottom: 15px;
+    width: 60%;
+    overflow: hidden;
+}
 
+    .inputrow input, .inputrow textarea {
+        float: right;
+    }
+
+    .inputrow textarea {
+        width: 100%;
+        max-width: none;
+        float: none;
+    }
+
+    .inputrow input[type="submit"] {
+        float: none;
+        margin-top: 50px;
+    }
 

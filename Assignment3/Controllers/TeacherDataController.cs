@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using Assignment3.Models; 
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
+using System.Web.Http.Cors;
+
 
 namespace Assignment3.Controllers
 {
@@ -45,6 +48,7 @@ namespace Assignment3.Controllers
 
         [HttpGet]
         [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
         public IEnumerable<Teacher> ListTeachers(string SearchKey=null) //method read only
         {
             //Create an instance of a connection
@@ -77,14 +81,14 @@ namespace Assignment3.Controllers
                 int TeacherId = (int)ResultSet["teacherid"];
                 string TeacherFname = (string)ResultSet["teacherfname"];
                 string TeacherLName = (string)ResultSet["teacherlname"];
-                DateTime Hiredate = (DateTime)ResultSet["hiredate"];
+                DateTime HireDate = (DateTime)ResultSet["hiredate"];
                 decimal Salary = (decimal)ResultSet["salary"];
 
                 Teacher NewTeacher = new Teacher();
                 NewTeacher.TeacherId = TeacherId;  
                 NewTeacher.TeacherFname=TeacherFname;
                 NewTeacher.TeacherLname=TeacherLName;
-                NewTeacher.Hiredate=Hiredate;
+                NewTeacher.HireDate=HireDate;
                 NewTeacher.Salary = Salary;
 
                  
@@ -118,8 +122,9 @@ namespace Assignment3.Controllers
         ///</returns>
 
 
-        //find Students
+        //find teacher
         [HttpGet]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
         public Teacher FindTeacher(int id)
         {
             Teacher NewTeacher = new Teacher();
@@ -142,18 +147,22 @@ namespace Assignment3.Controllers
             {
                 //Access Column information by the DB column name as an index
                 int TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
-                string TeacherFname = (string)ResultSet["TeacherFname"];
+                string TeacherFname = (string)ResultSet["teacherFname"];
                 string TeacherLName = (string)ResultSet["teacherlname"];
-                DateTime Hiredate = (DateTime)ResultSet["hiredate"];
+                string Employeenumber = ResultSet["employeenumber"].ToString();
+                DateTime HireDate = (DateTime)ResultSet["hiredate"];
                 decimal Salary = (decimal)ResultSet["salary"];
 
                 NewTeacher.TeacherId = TeacherId;
                 NewTeacher.TeacherFname = TeacherFname;
                 NewTeacher.TeacherLname = TeacherLName;
-                NewTeacher.Hiredate = Hiredate;
+                NewTeacher.Employeenumber = Employeenumber;
+                NewTeacher.HireDate = HireDate;
                 NewTeacher.Salary = Salary;
 
             }
+
+            Conn.Close();
 
             return NewTeacher;
         }
@@ -187,7 +196,7 @@ namespace Assignment3.Controllers
         ///</returns>
 
         [HttpGet]
-
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
         public IEnumerable<Class> FindClass(int id)
         {
             MySqlConnection Conn = School.AccessDatabase();
@@ -233,10 +242,134 @@ namespace Assignment3.Controllers
 
 
             }
+            Conn.Close();
 
             return classes;
         }
 
+        /// <summary>
+        /// Deletes an Teacher from the connected MySQL Database if the ID of that Teacher exists. Does NOT maintain relational integrity. Non-Deterministic.
+        /// </summary>
+        /// <param name="id">The ID of the teacher.</param>
+        /// <example>POST /api/TeacherData/DeleteTeacher/3</example>
+        [HttpPost]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
+        public void DeleteTeacher(int id)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "Delete from teachers where teacherid=@id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+        }
+
+
+
+        /// <summary>
+        /// Adds a Teacher to the MySQL Database.
+        /// </summary>
+        /// <param name="NewTeacher">An object with fields that map to the columns of the teacher's table. Non-Deterministic.</param>
+        /// <example>
+        /// POST api/TeacherData/AddTeacher 
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFname":"Gahee",
+        ///	"TeacherLname":"Choi",
+        ///	"Employeenumber":"A123",
+        ///	"Hiredate":"2022-11-30"
+        ///	"Salary":"100.00"
+        /// }
+        /// </example>
+        [HttpPost]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
+        public void AddTeacher([FromBody] Teacher NewTeacher)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "insert into teachers (teacherfname, teacherlname,employeenumber, hiredate, salary) values (@TeacherFname,@TeacherLname,@Employeenumber, CURRENT_DATE(), @Salary)";
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@Employeenumber", NewTeacher.Employeenumber);
+            cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+
+        }
+
+
+
+        /// <summary>
+        /// Updates an Teacher on the MySQL Database. Non-Deterministic.
+        /// </summary>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the teacher's table.</param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/10
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFname":"Gahee",
+        ///	"TeacherLname":"Choi",
+        ///	"Employeenumber":"A123",
+        ///	"Hiredate":"2022-11-30"
+        ///	"Salary":"100.00"
+        /// }
+        /// </example>
+        [HttpPost]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
+        public void UpdateTeacher(int id, [FromBody] Teacher TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, employeenumber=@Employeenumber, hiredate=@HireDate,salary=@Salary  where teacherid=@TeacherId";
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@Employeenumber", TeacherInfo.Employeenumber);
+            cmd.Parameters.AddWithValue("@HireDate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@TeacherId", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+        }
 
     }
 }
