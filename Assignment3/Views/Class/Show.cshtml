@@ -5,7 +5,19 @@
 
 <h2>Class information</h2>
 
-<a class="navlink" href="/Class/List">Back To Classes</a>
+
+
+
+
+<nav>
+    <a class="navlink" href="/Class/List">Back To Classes</a>
+    <a class="navlink_nt" href="/Class/New/@Model.ClassId">Add or Update a teacher</a>
+</nav>
+
+
+
+
+
 <div id="containershow">
 
     <h2>@Model.ClassName</h2>
@@ -13,7 +25,8 @@
     <p>ClassCode: @Model.ClassCode</p>
     <p>Start Date: @Model.StartDate</p>
     <p>Finish Date: @Model.FisihiDate</p>
-    <p>Teacher name: @ViewBag.SelectedTeacher.TeacherFname @ViewBag.SelectedTeacher.TeacherLname</p>
+    <p>Teacher Name:  @ViewBag.SelectedTeacher.TeacherFname @ViewBag.SelectedTeacher.TeacherLname</p>
+    
 
 </div>
 

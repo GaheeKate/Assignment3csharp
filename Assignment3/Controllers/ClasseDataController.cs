@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using Assignment3.Models; 
 using MySql.Data.MySqlClient;
+using System.Web.Http.Cors;
+
+
 
 namespace Assignment3.Controllers
 {
@@ -167,9 +170,9 @@ namespace Assignment3.Controllers
         }
 
 
-        //find teacher
+        //find teacher from class
         [HttpGet]
-        public Teacher FindTeacher(int id)
+        public Teacher FindTeacherfromclass(int id)
         {
             Teacher NewTeacher = new Teacher();
             MySqlConnection Conn = School.AccessDatabase();
@@ -181,7 +184,7 @@ namespace Assignment3.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from teachers where teacherid = " + id;
+            cmd.CommandText = "Select * from teachers join classes on teachers.teacherid = classes.teacherid where classid = " + id;
 
 
             //Gather Result Set of Query into a variable
@@ -211,15 +214,48 @@ namespace Assignment3.Controllers
 
 
 
+   
+        /// <summary>
+        /// Updates an Teacher on the MySQL Database. Non-Deterministic.
+        /// </summary>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the teacher's table.</param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/10
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFname":"Gahee",
+        ///	"TeacherLname":"Choi",
+        ///	"Employeenumber":"A123",
+        ///	"Hiredate":"2022-11-30"
+        ///	"Salary":"100.00"
+        /// }
+        /// </example>
+        [HttpPost]
+
+        public void UpdateTeacher(int id, [FromBody] Class TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
 
 
+            //Open the connection between the web server and database
+            Conn.Open();
 
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
 
+            //SQL QUERY
 
+            cmd.CommandText = "update classes set teacherid=@TeacherId where classid=@ClassId";
+            cmd.Parameters.AddWithValue("@ClassId", id);
+            cmd.Parameters.AddWithValue("@TeacherId", TeacherInfo.TeacherId);
+            cmd.Prepare();
 
+            cmd.ExecuteNonQuery();
 
+            Conn.Close();
 
+        }
 
-
-    }
+         }
 }

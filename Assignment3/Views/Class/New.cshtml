@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<div id="containershow">
+    <nav>
+        <a class="navlink" href="/Class/List">Back To Class</a>
+    </nav>
+    <h2>Add or Update Teacher</h2>
+
+    <form method="POST" action="/Class/UpdateC/@Model.ClassId">
+        <div class="inputrow">
+            <p>ClassId: @Model.ClassId</p>
+            <p>Current teacher name: @ViewBag.SelectedTeacher.TeacherFname @ViewBag.SelectedTeacher.TeacherLname</p>
+            <label for="TeacherId">TeacherId:</label>
+            <input type="text" id="TeacherId" name="TeacherId" value="@Model.TeacherId" />
+
+        </div>
+
+        <div class="inputrow">
+            <input type="submit" value="Modify Teacher" />
+        </div>
+    </form>
+</div>
