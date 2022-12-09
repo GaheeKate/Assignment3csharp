@@ -38,11 +38,11 @@ namespace Assignment3.Controllers
         }
 
         /// <summary>
-        /// Routes to a dynamically generated "Teacher Update" Page. Gathers information from the database.
+        /// Routes to a dynamically generated "Class New" Page. Gathers information from the database.
         /// </summary>
-        /// <param name="id">Id of the Teacher</param>
-        /// <returns>A dynamic "Update Teacher" webpage which provides the current information of the teacher and asks the user for new information as part of a form.</returns>
-        /// <example>GET : /Teacher/New/5</example>
+        /// <param name="id">Id of the Class</param>
+        /// <returns>A dynamic "Class New" webpage which provides the current information of the teacher and asks the user for new information as part of a form.</returns>
+        /// <example>GET : /Class/New/5</example>
         public ActionResult New(int id)
         {
             ClassDataController controller = new ClassDataController();
@@ -58,23 +58,16 @@ namespace Assignment3.Controllers
 
 
         /// <summary>
-        /// Receives a POST request containing information about an existing teacher in the system, with new values. Conveys this information to the API, and redirects to the "Teacher Show" page of our updated teacher.
+        /// Receives a POST request containing information about an existing class in the system, with new values. Conveys this information to the API, and redirects to the "Class Show" page of our updated class.
         /// </summary>
-        /// <param name="id">Id of the teacher to update</param>
-        /// <param name="TeacherFname">The updated first name of the teacher</param>
-        /// <param name="TeacherLname">The updated last name of the teacher</param>
-        /// <param name="Employeenumber">The updated bio of the teacher.</param>
-        /// <param name="Salary">The updated email of the teacher.</param>
-        /// <returns>A dynamic webpage which provides the current information of the teacher.</returns>
+        /// <param name="id">Id of the class to update</param>
+        /// <param name="TeacherId">The updated or newly added Teacher ID</param>
+        /// <returns>A dynamic webpage which provides the current information of the class.</returns>
         /// <example>
-        /// POST : /Teacher/Update/10
+        /// POST : /Class/UpdateC/10
         /// FORM DATA / POST DATA / REQUEST BODY 
         /// {
-        ///	"TeacherFname":"Gahee",
-        ///	"TeacherLname":"Choi",
-        ///	"Hiredate":"2022-11-30",
-        ///	"Employeenumber":"A123",
-        ///	"Salary":"100.00"
+        ///	"TeacherId":"5",
         /// }
         /// </example>
         [HttpPost]

@@ -171,6 +171,23 @@ namespace Assignment3.Controllers
 
 
         //find teacher from class
+
+        /// <summary>
+        /// Returns all matching classes from the database by specifying the primary key classId
+        /// </summary>
+        /// <param name="id">the Class ID in the database</param>
+        /// <returns>teacher id from class by the class ID</returns>
+        /// <example>GET api/ClassData/FindClass/2
+        /// <returns>   
+        /// <Teacher>
+        /// <Employeenumber>T381</Employeenumber>
+        /// <HireDate>2014-06-10T00:00:00</HireDate>
+        /// <Salary>10000.00</Salary>
+        /// <TeacherFname>Caitlinead</TeacherFname>
+        /// <TeacherId>2</TeacherId>
+        /// <TeacherLname>Cummings</TeacherLname>
+        /// </Teacher>
+        /// </returns>
         [HttpGet]
         public Teacher FindTeacherfromclass(int id)
         {
@@ -218,16 +235,12 @@ namespace Assignment3.Controllers
         /// <summary>
         /// Updates an Teacher on the MySQL Database. Non-Deterministic.
         /// </summary>
-        /// <param name="TeacherInfo">An object with fields that map to the columns of the teacher's table.</param>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the class's table.</param>
         /// <example>
-        /// POST api/TeacherData/UpdateTeacher/10
+        /// POST api/ClassData/UpdateTeacher/10
         /// FORM DATA / POST DATA / REQUEST BODY 
         /// {
-        ///	"TeacherFname":"Gahee",
-        ///	"TeacherLname":"Choi",
-        ///	"Employeenumber":"A123",
-        ///	"Hiredate":"2022-11-30"
-        ///	"Salary":"100.00"
+        ///	"TeacherId":"5"
         /// }
         /// </example>
         [HttpPost]
